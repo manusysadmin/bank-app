@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User, Group
+from django.shortcuts import redirect
 from rest_framework import viewsets, permissions, mixins
 
 from bankapp.models import Product
@@ -49,3 +50,7 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+def redirect_view(request):
+    return redirect('api/products')
