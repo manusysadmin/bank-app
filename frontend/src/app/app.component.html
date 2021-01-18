@@ -1,0 +1,36 @@
+<nav class="top-bar">
+  <ul>
+    <li>
+      <a routerLink="home"
+         routerLinkActive="active">HOME</a>
+    </li>
+    <li>
+      <a routerLink="products"
+         routerLinkActive="active">PRODUCTS</a>
+    </li>
+    <li>
+      <a routerLink="products-manage"
+         routerLinkActive="active">MANAGE PRODUCTS</a>
+    </li>
+    <li>
+      <a
+        routerLink="login"
+        routerLinkActive="active">LOGIN</a>
+      <a>LOGOUT</a>
+    </li>
+  </ul>
+
+</nav>
+
+<div class="content-container">
+  <router-outlet></router-outlet>
+</div>
+
+<div class="footer">
+  <p>
+    © Skandinaviska Enskilda Banken AB (publ)
+  </p>
+  <p>
+    SEB Group
+  </p>
+</div>

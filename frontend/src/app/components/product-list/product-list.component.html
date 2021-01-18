@@ -1,0 +1,24 @@
+<h2>Products</h2>
+
+<div class="form-container">
+  <form class="questionnaire"
+        [formGroup]="queryForm"
+        #ngForm="ngForm"
+        (ngSubmit)="queryForm.valid">
+    <fieldset>
+      <div class="income-bracket">
+        <label><b>How old are you?</b>
+          <select formControlName="ageBracket">
+            <option value="" disabled>Age</option>
+            <option value="JUNIOR">0-17</option>
+            <option value="ADULT">18-64</option>
+            <option value="SENIOR">65+</option>
+          </select>
+        </label>
+        <div *ngIf="ngForm.submitted && ageBracket.invalid">
+          Age is required.
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
