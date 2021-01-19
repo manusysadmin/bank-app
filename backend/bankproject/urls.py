@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.views.generic import TemplateView, RedirectView
 from rest_framework import routers
 
@@ -19,5 +19,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/', include('rest_framework.urls')),
-    path('', redirect_view)
+]
+
+urlpatterns += [
+    re_path(r'(?P<path>.*)', FrontEndRenderView.as_view())
 ]
