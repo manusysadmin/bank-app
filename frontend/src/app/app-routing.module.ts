@@ -9,12 +9,11 @@ import { RegisterComponent } from './components/register/register.component';
 import { ProductEditComponent } from './components/product-edit/product-edit.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'products' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'products', component: ProductListComponent },
   { path: 'products/manage/add', component: ProductAddComponent },
-  { path: 'products/manage/:slug', component: ProductEditComponent },
+  { path: 'products/manage', component: ProductEditComponent },
 ];
 
 @NgModule({
