@@ -1,24 +1,42 @@
 <h2>Products</h2>
 
-<div class="form-container">
-  <form class="questionnaire"
-        [formGroup]="queryForm"
-        #ngForm="ngForm"
-        (ngSubmit)="queryForm.valid">
-    <fieldset>
-      <div class="income-bracket">
-        <label><b>How old are you?</b>
-          <select formControlName="ageBracket">
-            <option value="" disabled>Age</option>
-            <option value="JUNIOR">0-17</option>
-            <option value="ADULT">18-64</option>
-            <option value="SENIOR">65+</option>
-          </select>
-        </label>
-        <div *ngIf="ngForm.submitted && ageBracket.invalid">
-          Age is required.
-        </div>
-      </div>
-    </fieldset>
+<div class="form-group">
+  <form [formGroup]="queryForm" (ngSubmit)="queryForm.valid">
+    <div class="age">
+      <label>How old are you?<br><br>
+        <select formControlName="ageBracket"
+                name="ageBracket">
+          <option value="" disabled>
+            Age
+          </option>
+          <option *ngFor="let item of ageBrackets | keyvalue"
+                  value="{{item.value}}">
+            {{item.key}}
+          </option>
+        </select>
+      </label>
+    </div>
+    <br><br>
+    <div class="income">
+      <label>What is your yearly income?<br><br>
+        <select formControlName="incomeBracket"
+                name="incomeBracket">
+          <option value="" disabled>
+            Income
+          </option>
+          <option *ngFor="let item of incomeBrackets | keyvalue"
+                  value="{{item.value}}">
+            {{item.key}}
+          </option>
+        </select>
+      </label>
+    </div>
+    <br><br>
+    <div class="student">
+      <label>Are you a student?<br><br>
+        <input type="radio" name="student" value="False">Yes
+        <input type="radio" name="student" value="True">No
+      </label>
+    </div>
   </form>
 </div>
