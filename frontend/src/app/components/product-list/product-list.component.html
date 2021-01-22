@@ -1,8 +1,10 @@
-<h2>Products</h2>
+<h2>Product Recommendations</h2>
 
 <div class="form-group">
-  <form [formGroup]="queryForm" (ngSubmit)="queryForm.valid">
-    <div class="age">
+  <form [formGroup]="queryForm"
+        (ngSubmit)="queryForm.valid"
+        #ngForm = "ngForm">
+    <div class="age-form">
       <label>How old are you?<br><br>
         <select formControlName="ageBracket"
                 name="ageBracket">
@@ -16,8 +18,11 @@
         </select>
       </label>
     </div>
+    <div *ngIf="ngForm.submitted && ageBracket.invalid">
+      Age is required
+    </div>
     <br><br>
-    <div class="income">
+    <div class="income-form">
       <label>What is your yearly income?<br><br>
         <select formControlName="incomeBracket"
                 name="incomeBracket">
@@ -31,12 +36,31 @@
         </select>
       </label>
     </div>
+    <div *ngIf="ngForm.submitted && incomeBracket.invalid">
+      Income is required
+    </div>
     <br><br>
-    <div class="student">
-      <label>Are you a student?<br><br>
-        <input type="radio" name="student" value="False">Yes
-        <input type="radio" name="student" value="True">No
+    <div class="student-form">
+      <label>Are you a student?<br><br></label>
+      <label>
+        <input type="radio"
+               name="student"
+               formControlName="student"
+               value="False">
+        Yes
+      </label>
+      <label>
+        <input type="radio"
+               name="student"
+               formControlName="student"
+               value="True">
+        No
       </label>
     </div>
+    <div *ngIf="ngForm.submitted && student.invalid">
+      Please choose "yes" or "no"
+    </div>
+    <br><br>
+    <button type="submit">Get recommendations</button>
   </form>
 </div>
