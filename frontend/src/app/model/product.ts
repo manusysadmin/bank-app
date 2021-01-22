@@ -4,3 +4,5 @@ export interface Product {
   student: boolean;
   income: string;
 }
+
+
