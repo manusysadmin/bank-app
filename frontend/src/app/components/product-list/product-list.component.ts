@@ -37,7 +37,7 @@ export class ProductListComponent {
     });
   }
 
-  get ageBracket() { return this.queryForm.get('ageBracket'); }
-  get incomeBracket() { return this.queryForm.get('incomeBracket'); }
-  get student() { return this.queryForm.get('student'); }
+  get ageBracket(): any { return this.queryForm.get('ageBracket'); }
+  get incomeBracket(): any { return this.queryForm.get('incomeBracket'); }
+  get student(): any { return this.queryForm.get('student'); }
 }
