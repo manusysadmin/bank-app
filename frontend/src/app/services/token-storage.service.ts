@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 
+const TOKEN_KEY = 'auth-token';
+const USER_KEY = 'auth-user';
+
 @Injectable({
   providedIn: 'root'
 })
-export class TokenService {
+export class TokenStorageService {
 
-  private _token: string = null;
   constructor() { }
 
   set token(token: string) {
