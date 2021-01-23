@@ -56,6 +56,4 @@ class GroupViewSet(viewsets.ModelViewSet):
 class FrontEndRenderView(TemplateView):
     template_name = 'bankapp/index.html'
 
-#TODO figure out Git
-#TODO connect Django to Angular
-#TODO create SSH key
+
