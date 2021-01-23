@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Product } from '../../model/product';
 
@@ -20,13 +20,13 @@ export class ProductListComponent {
     '18-64': 'ADULT',
     '65+': 'SENIOR'
   };
+
   public incomeBrackets = {
     '0': 'NO_INCOME',
     '1-12000': 'LOW_INCOME',
     '12001-40000': 'MEDIUM_INCOME',
     '40000+': 'HIGH_INCOME'
   };
-
 
   constructor(private productService: ProductService,
               private fb: FormBuilder) {
@@ -37,7 +37,28 @@ export class ProductListComponent {
     });
   }
 
-  get ageBracket(): any { return this.queryForm.get('ageBracket'); }
-  get incomeBracket(): any { return this.queryForm.get('incomeBracket'); }
-  get student(): any { return this.queryForm.get('student'); }
+  get ageBracket(): any {
+    return this.queryForm.get('ageBracket');
+  }
+  get incomeBracket(): any {
+    return this.queryForm.get('incomeBracket');
+  }
+  get student(): any {
+    return this.queryForm.get('student');
+  }
+
+  getProductsByCriteria(): void {
+    this.productService.searchByCriteria(
+      this.queryForm.value.ageBracket,
+      this.queryForm.value.incomeBracket,
+      this.queryForm.value.student
+    ).subscribe(
+      (products: any) => {
+        this.products = products;
+        console.log(products);
+      },
+      error => {
+        console.log(error);
+      });
+  }
 }

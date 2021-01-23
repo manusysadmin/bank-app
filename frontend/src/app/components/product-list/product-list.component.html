@@ -2,7 +2,7 @@
 
 <div class="form-group">
   <form [formGroup]="queryForm"
-        (ngSubmit)="queryForm.valid"
+        (ngSubmit)="queryForm.valid && getProductsByCriteria()"
         #ngForm = "ngForm">
     <div class="age-form">
       <label>How old are you?<br><br>
