@@ -37,4 +37,3 @@ export class ProductService {
   }
 
 }
-// TODO: search by criteria? Why?

@@ -11,11 +11,11 @@ export class TokenStorageService {
   constructor() { }
 
   set token(token: string) {
-    this._token = token;
+    this.token = token;
   }
 
   get token(): string {
-    return this._token;
+    return this.token;
   }
 
   isLoggedIn(): any {

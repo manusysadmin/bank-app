@@ -1,7 +1,11 @@
 <div class="form-group">
-  <form (ngSubmit)="loginForm.valid">
+  <form [formGroup]="loginForm"
+        (ngSubmit)="loginForm.valid"
+        #ngForm="ngForm">
     <input type="text" placeholder="Username">
+    <br><br>
     <input type="password" placeholder="Password">
+    <br><br>
     <button type="submit">Login</button>
   </form>
 </div>
