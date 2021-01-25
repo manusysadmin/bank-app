@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-product-add',
@@ -8,25 +9,53 @@ import { ProductService } from '../../services/product.service';
 })
 export class ProductAddComponent implements OnInit {
 
+  productForm: FormGroup;
+
   product = {
     name: '',
     age: '',
     student: false,
     income: ''
   };
+
   submitted = false;
-  public ageBracket = [
-    'JUNIOR',
-    'ADULT',
-    'SENIOR'
-  ];
-  public incomeBracket = [
-    'NO_INCOME',
-    'LOW_INCOME',
-    'MEDIUM_INCOME',
-    'HIGH_INCOME'
-  ];
-  constructor(private productService: ProductService) { }
+
+  public ageBrackets = {
+    '0-17': 'JUNIOR',
+    '18-64': 'ADULT',
+    '65+': 'SENIOR'
+  };
+
+  public incomeBrackets = {
+    '0': 'NO_INCOME',
+    '1-12000': 'LOW_INCOME',
+    '12001-40000': 'MEDIUM_INCOME',
+    '40000+': 'HIGH_INCOME'
+  };
+
+  constructor(private productService: ProductService,
+              private fb: FormBuilder) {
+    this.productForm = this.fb.group({
+      name: ['', Validators.required],
+      ageBracket: ['', Validators.required],
+      incomeBracket: ['', Validators.required],
+      student: ['', Validators.required]
+    });
+  }
+
+  get name(): any {
+    return this.productForm.get('name');
+  }
+
+  get ageBracket(): any {
+    return this.productForm.get('ageBracket');
+  }
+  get incomeBracket(): any {
+    return this.productForm.get('incomeBracket');
+  }
+  get student(): any {
+    return this.productForm.get('student');
+  }
 
   addProduct(): void {
     const data = {
@@ -45,15 +74,6 @@ export class ProductAddComponent implements OnInit {
         error => {
           console.log(error);
         });
-  }
-  newProduct(): void {
-    this.submitted = false;
-    this.product = {
-      name: '',
-      age: '',
-      student: false,
-      income: ''
-    };
   }
 
   ngOnInit(): void {
