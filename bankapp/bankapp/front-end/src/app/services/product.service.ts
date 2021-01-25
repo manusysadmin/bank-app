@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const baseUrl = 'http://localhost:8000/api/products';
+const headers = new HttpHeaders()
+  .set('Content-Type', 'application/json');
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ export class ProductService {
   constructor(private httpClient: HttpClient) { }
 
   readAll(): Observable<any>{
-    return this.httpClient.get(baseUrl);
+    return this.httpClient.get(baseUrl, {'headers': headers});
   }
 
   read(): Observable<any>{
@@ -33,7 +35,8 @@ export class ProductService {
   }
 
   searchByCriteria(ageBracket: string, incomeBracket: string, student: boolean): Observable<any> {
-    return this.httpClient.get('${baseURL}/search?ageBracket=${ageBracket}&incomeBracket=${incomeBracket}&student=${student}');
+    return this.httpClient.get('${baseURL}/search?ageBracket=${ageBracket}&incomeBracket=${incomeBracket}&student=${student}',
+      {'headers': headers});
   }
 
 }
