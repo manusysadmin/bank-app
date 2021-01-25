@@ -30,3 +30,7 @@ import { RegisterComponent } from './components/register/register.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+//TODO: add api to main route
+//TODO: fix product list URL
+//TODO: change list content type to JSON
