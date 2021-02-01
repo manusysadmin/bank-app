@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Product } from '../../model/product';
 
 @Component({
   selector: 'app-product-add',
@@ -56,7 +57,6 @@ export class ProductAddComponent implements OnInit {
   get student(): any {
     return this.productForm.get('student');
   }
-
   addProduct(): void {
     const data = {
       name: this.product.name,
