@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule} from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +11,7 @@ import {AuthService} from './services/auth.service';
 import {TokenStorageService} from './services/token-storage.service';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { RegisterComponent } from './components/register/register.component';
+import {HttpXsrfInterceptorService} from './services/http-xsrf-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -24,9 +25,17 @@ import { RegisterComponent } from './components/register/register.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: 'CSRF'
+    })
   ],
-  providers: [ProductService, AuthService, TokenStorageService],
+  providers: [
+    ProductService,
+    AuthService,
+    TokenStorageService,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpXsrfInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
