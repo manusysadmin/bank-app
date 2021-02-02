@@ -8,7 +8,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+  error: any;
+  constructor() {
+  }
 
+  register(username: string, email: string, password1: string, password2: string): any {
+
+  }
   // public username: string;
   // public password: string = '';
   //

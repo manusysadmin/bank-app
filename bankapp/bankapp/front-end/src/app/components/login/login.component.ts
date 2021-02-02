@@ -8,14 +8,20 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-
-  loginForm: FormGroup;
-
-  constructor(private authService: AuthService,
-              private fb: FormBuilder) {
-    this.loginForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
+  error: any;
+  constructor() {
   }
+
+  login(username: string, password: string): any {
+
+  }
+  // loginForm: FormGroup;
+  //
+  // constructor(private authService: AuthService,
+  //             private fb: FormBuilder) {
+  //   this.loginForm = this.fb.group({
+  //     username: ['', Validators.required],
+  //     password: ['', Validators.required]
+  //   });
+  // }
 }
