@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,11 +10,15 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent {
   error: any;
-  constructor() {
+  constructor(private authService: AuthService,
+              private router: Router) {
   }
 
   login(username: string, password: string): any {
-
+    this.authService.login(username, password).subscribe(
+      (success: any) => this.router.navigate(['api/products']),
+        (error: any) => {console.error(error); }
+    );
   }
   // loginForm: FormGroup;
   //

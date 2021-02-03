@@ -39,7 +39,13 @@ export class AuthService {
   }
 
   register(username: string, password1: string, password2: string): any {
-    // TODO implement signup
+    return this.http.post(
+      this.apiRoot.concat('register/'),
+      { username, password1, password2 }
+    ).pipe(
+      tap(response => this.setSession(response)),
+      shareReplay(),
+    );
   }
 
   logout(): any {
@@ -61,9 +67,10 @@ export class AuthService {
 
   getExpiration(): any {
     const expiration = localStorage.getItem('expires_at');
-    const expiresAt = JSON.parse(expiration);
-
-    return moment(expiresAt);
+    if (expiration != null) {
+      const expiresAt = JSON.parse(expiration);
+      return moment(expiresAt);
+    }
   }
 
   isLoggedIn(): any {

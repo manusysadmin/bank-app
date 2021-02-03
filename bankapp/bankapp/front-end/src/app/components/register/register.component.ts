@@ -9,11 +9,15 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
   error: any;
-  constructor() {
+  constructor(private authService: AuthService,
+              private router: Router) {
   }
 
-  register(username: string, email: string, password1: string, password2: string): any {
-
+  register(username: string, password1: string, password2: string): any {
+    this.authService.register(username, password1, password2).subscribe(
+      (success: any) => this.router.navigate(['api/products']),
+      (error: any) => this.error = error
+    );
   }
   // public username: string;
   // public password: string = '';
