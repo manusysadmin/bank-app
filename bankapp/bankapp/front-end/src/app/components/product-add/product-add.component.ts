@@ -27,46 +27,30 @@ export class ProductAddComponent {
 
   constructor(private productService: ProductService,
               private fb: FormBuilder) {
-    this.initializeProduct();
     this.productForm = this.fb.group({
       name: ['', Validators.required],
-      ageBracket: ['', Validators.required],
-      incomeBracket: ['', Validators.required],
+      age: ['', Validators.required],
+      income: ['', Validators.required],
       student: ['', Validators.required]
     });
   }
 
-  initializeProduct(): any {
-    this.product = {
-      name: '',
-      age: '',
-      student: false,
-      income: '',
-      slug: '',
-    };
-  }
-
-  createProduct(productForm: any): any {
-    if (productForm.valid) {
-      this.productService.create(this.product)
-        .subscribe((result: any) => {
-          this.message = result.msg;
-          this.initializeProduct();
-        }, (err) => {
-          this.message = err.error.msg;
-        });
-    } else {
-      console.error('Product form is invalid.');
-    }
+  createProduct(): any {
+    this.productService.create(this.productForm.value)
+      .subscribe((result: any) => {
+        this.message = result.msg;
+      }, (err) => {
+        this.message = err.error.msg;
+      });
   }
   get name(): any {
     return this.productForm.get('name');
   }
-  get ageBracket(): any {
-    return this.productForm.get('ageBracket');
+  get age(): any {
+    return this.productForm.get('age');
   }
-  get incomeBracket(): any {
-    return this.productForm.get('incomeBracket');
+  get income(): any {
+    return this.productForm.get('income');
   }
   get student(): any {
     return this.productForm.get('student');

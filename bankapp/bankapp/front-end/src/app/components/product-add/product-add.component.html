@@ -2,7 +2,7 @@
 
 <div class="form-group">
   <form [formGroup]="productForm"
-        (ngSubmit)="productForm.valid && createProduct(productForm)"
+        (ngSubmit)="productForm.valid && createProduct()"
         #ngForm = "ngForm">
     <div class="name-form">
       <label>Product name<br>
@@ -17,8 +17,8 @@
     <br><br>
     <div class="age-form">
       <label>Select age brackets<br><br>
-        <select formControlName="ageBracket"
-                name="ageBracket"
+        <select formControlName="age"
+                name="age"
                 multiple>
           <option *ngFor="let item of ageBrackets | keyvalue"
                   value="{{item.value}}">
@@ -27,14 +27,14 @@
         </select>
       </label>
     </div>
-    <div *ngIf="ngForm.submitted && ageBracket.invalid">
+    <div *ngIf="ngForm.submitted && age.invalid">
       Age is required
     </div>
     <br><br>
     <div class="income-form">
       <label>Select income brackets<br><br>
-        <select formControlName="incomeBracket"
-                name="incomeBracket"
+        <select formControlName="income"
+                name="income"
                 multiple>
           <option *ngFor="let item of incomeBrackets | keyvalue"
                   value="{{item.value}}">
@@ -43,7 +43,7 @@
         </select>
       </label>
     </div>
-    <div *ngIf="ngForm.submitted && incomeBracket.invalid">
+    <div *ngIf="ngForm.submitted && income.invalid">
       Income is required
     </div>
     <br><br>
@@ -68,7 +68,7 @@
       Please choose "yes" or "no"
     </div>
     <br><br>
-    <button type="submit" (click)="createProduct(productForm)">Create product</button>
+    <button type="submit" (click)="createProduct()">Create product</button>
   </form>
 </div>
 
