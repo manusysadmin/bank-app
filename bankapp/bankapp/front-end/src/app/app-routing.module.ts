@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'api/login', component: LoginComponent },
   { path: 'api/register', component: RegisterComponent },
   { path: 'api/products', component: ProductListComponent },
-  { path: 'api/manage/add', component: ProductAddComponent, canActivate: [AuthGuard] },
+  { path: 'api/manage/add', component: ProductAddComponent },
 ];
 
 @NgModule({

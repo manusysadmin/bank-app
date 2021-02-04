@@ -12,7 +12,7 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 router.register(r'products', views.ProductListViewSet)
-router.register(r'manage/add', views.ProductCreateViewSet)
+# router.register(r'manage/add', views.ProductCreateViewSet)
 router.register(r'manage', views.ProductDetailViewSet)
 
 
@@ -21,6 +21,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/', include('rest_framework.urls')),
     path('api/login/', obtain_jwt_token),
+    path('api/manage/add', views.ProductCreateViewSet.as_view()),
     path('api/refresh-token/', refresh_jwt_token)
 ]
 

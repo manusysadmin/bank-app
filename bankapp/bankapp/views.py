@@ -1,13 +1,13 @@
 from django.contrib.auth.models import User, Group
 from django.shortcuts import redirect, render
 from django.views.generic.base import View, TemplateView
-from rest_framework import viewsets, permissions, mixins
+from rest_framework import viewsets, permissions, mixins, generics
 
 from bankapp.models import Product
 from bankapp.serializers import UserSerializer, GroupSerializer, ProductSerializer
 
 
-class ProductCreateViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+class ProductCreateViewSet(mixins.CreateModelMixin, generics.GenericAPIView):
     """
     API endpoint that allows products to be created.
     """
@@ -15,6 +15,8 @@ class ProductCreateViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     serializer_class = ProductSerializer
     # permission_classes = [permissions.IsAuthenticated]
 
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
 class ProductDetailViewSet(viewsets.ModelViewSet):
     """
