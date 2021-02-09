@@ -1,7 +1,20 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+from multiselectfield import MultiSelectField
 
+AGE_CHOICES = [
+    ('JUNIOR', '0-17'),
+    ('ADULT', '18-64'),
+    ('SENIOR', '64+')
+]
+
+INCOME_CHOICES = [
+    ('NO_INCOME', '0'),
+    ('LOW_INCOME', '1-12000'),
+    ('MEDIUM_INCOME', '12001-40000'),
+    ('HIGH_INCOME', '40000+')
+]
 
 class AgeBracket(models.Model):
     AGE_CHOICES = [
@@ -30,9 +43,9 @@ class IncomeBracket(models.Model):
 
 class Product(models.Model):
     name = models.CharField(blank=False, max_length=120, unique=True)
-    age = models.ManyToManyField(AgeBracket)
+    age = MultiSelectField(choices=AGE_CHOICES, default='')
     student = models.BooleanField(blank=False)
-    income = models.ManyToManyField(IncomeBracket)
+    income = MultiSelectField(choices=INCOME_CHOICES, default='')
     slug = models.SlugField(default='', editable=False, max_length=120)
 
     def save(self, *args, **kwargs):
