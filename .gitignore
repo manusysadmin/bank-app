@@ -2,3 +2,5 @@
 node_modules
 back-end/bankapp/migrations
 .env
+bankapp.iml
+front-end/front-end.iml
