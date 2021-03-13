@@ -1,4 +1,4 @@
 .idea
 node_modules
-bankapp/migrations
+back-end/bankapp/migrations
 .env
