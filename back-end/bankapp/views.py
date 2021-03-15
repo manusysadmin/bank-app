@@ -15,7 +15,7 @@ class ProductCreateView(generics.CreateAPIView):
     """
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
@@ -27,7 +27,7 @@ class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     """
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]
     lookup_field = 'slug'
 
 
@@ -60,7 +60,7 @@ class UserListView(generics.ListAPIView):
     """
     queryset = CustomUser.objects.all().order_by('role')
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]
 
 
 class UserCreateView(generics.CreateAPIView):
@@ -77,5 +77,5 @@ class UserEditView(generics.RetrieveUpdateDestroyAPIView):
     """
     serializer_class = UserSerializer
     queryset = CustomUser.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]
     lookup_field = 'pk'
