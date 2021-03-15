@@ -9,7 +9,7 @@ class TokenView(TokenObtainPairView):
     serializer_class = TokenSerializer
 
 
-class ProductCreateViewSet(generics.CreateAPIView):
+class ProductCreateView(generics.CreateAPIView):
     """
     API endpoint that allows products to be created.
     """
@@ -21,17 +21,17 @@ class ProductCreateViewSet(generics.CreateAPIView):
         return self.create(request, *args, **kwargs)
 
 
-class ProductDetailViewSet(generics.RetrieveUpdateDestroyAPIView):
+class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     """
     API endpoint that allows products to be viewed, edited, and deleted.
     """
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     lookup_field = 'slug'
 
 
-class ProductListViewSet(generics.ListAPIView):
+class ProductListView(generics.ListAPIView):
     """
     API endpoint that allows products to be viewed.
     """
