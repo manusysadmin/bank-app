@@ -1,8 +1,8 @@
 from rest_framework import generics, permissions
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from bankapp.models import Product, CustomUser
-from bankapp.serializers import UserSerializer, ProductSerializer, TokenSerializer
+from .models import Product, CustomUser
+from .serializers import UserSerializer, ProductSerializer, TokenSerializer
 
 
 class TokenView(TokenObtainPairView):
