@@ -12,23 +12,23 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<any> {
-    return this.http.get(`${BASE_URL}/manage`);
+    return this.http.get(`${BASE_URL}/manage/products`);
   }
 
   get(productSlug: string): Observable<any> {
-    return this.http.get(`${BASE_URL}/manage/${productSlug}`);
+    return this.http.get(`${BASE_URL}/manage/products/${productSlug}`);
   }
 
   create(data: any): Observable<any> {
-    return this.http.post(`${BASE_URL}/manage/add`, data);
+    return this.http.post(`${BASE_URL}/manage/products/add`, data);
   }
 
   update(productSlug: string, data: any): Observable<any> {
-    return this.http.put(`${BASE_URL}/manage/${productSlug}`, data);
+    return this.http.put(`${BASE_URL}/manage/products/${productSlug}`, data);
   }
 
   delete(productSlug: string): Observable<any> {
-    return this.http.delete(`${BASE_URL}/manage/${productSlug}`);
+    return this.http.delete(`${BASE_URL}/manage/products/${productSlug}`);
   }
 
   searchByCriteria(age: string, income: string, student: boolean): Observable<any> {

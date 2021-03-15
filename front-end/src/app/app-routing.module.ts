@@ -15,14 +15,14 @@ import { HomeComponent } from './components/home/home.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent },
-  { path: 'products', component: ProductListComponent, canActivate: [AuthGuard] },
-  { path: 'products/manage/add', component: ProductAddComponent, canActivate: [AuthGuard] },
-  { path: 'products/manage/:productSlug', component: ProductDetailComponent, canActivate: [AuthGuard] },
-  { path: 'products/manage', component: ProductManageComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'users/manage/:id', component: UserDetailComponent, canActivate: [AuthGuard] },
-  { path: 'users/manage', component: UserListComponent, canActivate: [AuthGuard] },
+  { path: 'products', component: ProductListComponent, canActivate: [AuthGuard] },
+  { path: 'manage/products/add', component: ProductAddComponent, canActivate: [AuthGuard] },
+  { path: 'manage/products/:productSlug', component: ProductDetailComponent, canActivate: [AuthGuard] },
+  { path: 'manage/products', component: ProductManageComponent, canActivate: [AuthGuard] },
+  { path: 'manage/users/:id', component: UserDetailComponent, canActivate: [AuthGuard] },
+  { path: 'manage/users', component: UserListComponent, canActivate: [AuthGuard] },
 
 ];
 
