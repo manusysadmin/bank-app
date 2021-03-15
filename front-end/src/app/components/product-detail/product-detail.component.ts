@@ -67,7 +67,8 @@ export class ProductDetailComponent implements OnInit {
   }
 
   updateProduct(): any {
-    this.productService.update(this.route.snapshot.paramMap.get('productSlug') || '', this.productEditForm.value)
+    this.productService.update(this.route.snapshot.paramMap.get('productSlug') || '',
+      this.productEditForm.value)
       .subscribe(
         (response: any) => {
           console.log(response);
