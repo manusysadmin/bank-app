@@ -30,8 +30,7 @@ export class ProductAddComponent {
     this.productForm = this.fb.group({
       name: [null, [
         Validators.required,
-        Validators.minLength(3),
-        Validators.pattern('[A-Za-z0-9]+'), ]],
+        Validators.minLength(3)]],
       age: [null, Validators.required],
       student: [null, Validators.required],
       income: [null, Validators.required]
