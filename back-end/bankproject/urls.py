@@ -9,7 +9,7 @@ urlpatterns = [
     path('api/register', views.UserCreateView.as_view()),
     path('api/refresh_jwt_token', TokenRefreshView.as_view()),
     path('api/manage/products/add', views.ProductCreateView.as_view()),
-    path('api/manage/products/<slug:slug>', views.ProductDetailView.as_view()),
+    path('api/manage/products/<slug:slug>', views.ProductDetailView.as_view(), name="product-detail"),
     path('api/manage/products', views.ProductListView.as_view()),
     path('api/manage/users/<pk>', views.UserEditView.as_view()),
     path('api/manage/users', views.UserListView.as_view()),
