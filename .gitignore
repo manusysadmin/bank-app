@@ -4,3 +4,7 @@ back-end/bankapp/migrations
 .env
 bankapp.iml
 front-end/front-end.iml
+back-end/.coverage*
+back-end/htmlcov
+back-end/bankproject/settings.py
+
