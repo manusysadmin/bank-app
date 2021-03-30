@@ -1,7 +1,6 @@
 from bankapp.models import CustomUser, Product
-from django.urls import reverse
 from rest_framework import status
-from rest_framework.test import APITestCase, force_authenticate, APIClient, APIRequestFactory
+from rest_framework.test import APITestCase, APIClient
 
 
 class UserTestCases(APITestCase):
@@ -9,11 +8,9 @@ class UserTestCases(APITestCase):
     def setUp(self):
         self.user = CustomUser.objects.create_user(username="test-user", password="testpassword")
         self.user.save()
-        self.assertEqual(CustomUser.objects.count(), 1)
 
         self.superuser = CustomUser.objects.create_superuser(username="test-admin", password="testpassword")
         self.superuser.save()
-        self.assertEqual(CustomUser.objects.count(), 2)
 
     def test_user_create(self):
         response = self.client.post("/api/register", {"username": "test-user-reg", "password": "testpassword"})
@@ -44,7 +41,7 @@ class UserTestCases(APITestCase):
         self.assertEqual(CustomUser.objects.count(), 2)
 
 
-class ProductTestCases(APITestCase):
+class ProductTestCasesAuthorized(APITestCase):
 
     def setUp(self):
         data = {"name": "Test Product",
@@ -61,7 +58,7 @@ class ProductTestCases(APITestCase):
         self.product = Product.objects.create(name="Test Product", age=['JUNIOR'], student=False, income=["NO_INCOME"])
         self.product.save()
 
-    def test_productcreate(self):
+    def test_product_create(self):
         client = APIClient()
         login_response = self.client.post("/api/login", {'username': 'test-admin',
                                                          'password': 'testpassword'}, format='json')
@@ -75,7 +72,7 @@ class ProductTestCases(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Product.objects.count(), 2)
 
-    def test_productcreate_unauthorized(self):
+    def test_product_create_unauth(self):
         client = APIClient()
         login_response = self.client.post("/api/login", {'username': 'test-user',
                                                          'password': 'testpassword'}, format='json')
@@ -92,10 +89,18 @@ class ProductTestCases(APITestCase):
     def test_product_detail_view(self):
         client = APIClient()
         login_response = self.client.post("/api/login", {'username': 'test-admin',
-                                                        'password': 'testpassword'}, format='json')
+                                                         'password': 'testpassword'}, format='json')
         client.credentials(HTTP_AUTHORIZATION='Bearer ' + login_response.data['access'])
         response = client.get("/api/manage/products/test-product")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_product_detail_view_unauth(self):
+        client = APIClient()
+        login_response = self.client.post("/api/login", {'username': 'test-user',
+                                                         'password': 'testpassword'}, format='json')
+        client.credentials(HTTP_AUTHORIZATION='Bearer ' + login_response.data['access'])
+        response = client.get("/api/manage/products/test-product")
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_product_update_view(self):
         client = APIClient()
@@ -103,12 +108,39 @@ class ProductTestCases(APITestCase):
         login_response = self.client.post("/api/login", {'username': 'test-admin',
                                                          'password': 'testpassword'}, format='json')
         client.credentials(HTTP_AUTHORIZATION='Bearer ' + login_response.data['access'])
-        response = client.put("/api/manage/products/test-product", {'name': 'Test Product Edited'})
+        response = client.put("/api/manage/products/test-product", {'name': 'Test Product Edited',
+                                                                    'age': ['JUNIOR'],
+                                                                    'student': False,
+                                                                    'income': ['NO_INCOME']})
         product.refresh_from_db()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_product_delete_view(self):
-        pass
+    def test_product_update_view_unauth(self):
+        client = APIClient()
+        product = Product.objects.get(name="Test Product")
+        login_response = self.client.post("/api/login", {'username': 'test-user',
+                                                         'password': 'testpassword'}, format='json')
+        client.credentials(HTTP_AUTHORIZATION='Bearer ' + login_response.data['access'])
+        response = client.put("/api/manage/products/test-product", {'name': 'Test Product Edited',
+                                                                    'age': ['JUNIOR'],
+                                                                    'student': False,
+                                                                    'income': ['NO_INCOME']})
+        product.refresh_from_db()
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_product_delete_view_unauthorized(self):
-        pass
+    def test_product_delete_view(self):
+        client = APIClient()
+        login_response = self.client.post("/api/login", {'username': 'test-admin',
+                                                         'password': 'testpassword'}, format='json')
+        client.credentials(HTTP_AUTHORIZATION='Bearer ' + login_response.data['access'])
+        response = client.delete("/api/manage/products/test-product")
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Product.objects.count(), 0)
+
+    def test_product_delete_view_unauth(self):
+        client = APIClient()
+        login_response = self.client.post("/api/login", {'username': 'test-user',
+                                                         'password': 'testpassword'}, format='json')
+        client.credentials(HTTP_AUTHORIZATION='Bearer ' + login_response.data['access'])
+        response = client.delete("/api/manage/products/test-product")
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
