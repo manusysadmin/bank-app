@@ -19,10 +19,10 @@ class ProductModelTest(TestCase):
         self.assertIsInstance(self.product.income, list)
         self.assertIsInstance(self.product.slug, str)
 
-    def test_str(self):
+    def test_shows_str(self):
         self.assertEqual(str(Product.objects.get(name="Test Product")), "Test Product")
 
-    def test_get_absolute_url(self):
+    def test_can_get_absolute_url(self):
         product = Product.objects.get(name="Test Product")
         self.assertEqual(product.get_absolute_url(), '/api/manage/products/test-product')
 
