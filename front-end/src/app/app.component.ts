@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   showUserManagement = false;
   showProductManagement = false;
   username?: string;
-  title = 'front-end';
+  title = 'bank-app';
   decodedToken!: any;
 
   constructor(private tokenStorageService: TokenStorageService,
