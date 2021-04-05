@@ -1,16 +1,6 @@
 version: '3.8'
 
 services:
-  backend:
-    build:
-      context: ./back-end
-    command: python3 manage.py runserver 0.0.0.0:8000
-    volumes:
-      - ./backend/:/back-end/
-    ports:
-      - '8000:8000'
-    depends_on:
-      - db
   db:
     image: postgres:12.0-alpine
     volumes:
@@ -19,6 +9,26 @@ services:
       POSTGRES_USER: 'admin'
       POSTGRES_PASSWORD: 'admin'
       POSTGRES_DB: 'bankproject'
+  backend:
+    build:
+      context: ./back-end
+    command: python3 manage.py runserver 0.0.0.0:8000
+    container_name: backend-container
+    volumes:
+      - ./backend/:/back-end/
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+  frontend:
+    build:
+      context: ./front-end
+    container_name: frontend-container
+    depends_on:
+      - db
+      - backend
+    ports:
+      - '4200:4200'
 volumes:
   postgres_data:
 

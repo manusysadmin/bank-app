@@ -1,0 +1,9 @@
+.env
+.idea
+back-end/htmlcov
+back-end/.coverage
+back-end/.coveragerc
+.git
+.gitignore
+front-end/node_modules
+front-end/e2e
