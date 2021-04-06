@@ -1,13 +1,11 @@
 FROM python:3.7
 
-COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements.txt /backend/
+WORKDIR /backend/
 
-# Mounts the application code to the image
-COPY . code
-WORKDIR /code
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-EXPOSE 8000
-
-ENTRYPOINT ["python3", "manage.py"]
-CMD ["runserver", "0.0.0.0:8000"]
+RUN pip3 install -r requirements.txt
+COPY . /backend/
